@@ -13,4 +13,9 @@ class Historique extends Model
         'action',
         'date',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

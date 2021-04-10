@@ -13,4 +13,9 @@ class Tache extends Model
         'tache',
         'date_tache',
     ];
+
+    public function stage()
+    {
+        return $this->belongsTo(Stage::class);
+    }
 }

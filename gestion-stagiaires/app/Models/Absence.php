@@ -12,6 +12,11 @@ class Absence extends Model
     protected $fillable = [
         'date_du',
         'date_au',
+        'nombresjours',
         'cause',
     ];
+
+    public function stage(){
+        return $this->belongsTo(Stage::class);
+    }
 }

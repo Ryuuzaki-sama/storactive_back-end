@@ -11,6 +11,12 @@ class Alerte extends Model
 
     protected $fillable = [
         'contenu',
-
+        'status',
+        'date_creation',
     ];
+
+    public function stage()
+    {
+        return $this->belongsTo(Stage::class);
+    }
 }

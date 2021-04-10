@@ -10,7 +10,6 @@ class Stagiaire extends Model
     use HasFactory;
 
     protected $fillable = [
-        'cin',
         'sexe',
         'adresse',
         'tel',
@@ -18,5 +17,9 @@ class Stagiaire extends Model
 
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    public function isEnabled(){
+        // code here
     }
 }
