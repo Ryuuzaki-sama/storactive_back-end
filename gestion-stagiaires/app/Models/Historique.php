@@ -18,4 +18,9 @@ class Historique extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function stagiaire()
+    {
+        return $this->belongsTo(Stagiaire::class);
+    }
 }

@@ -18,10 +18,21 @@ class Stage extends Model
         'etablissement',
         'intitule_projet',
         'description_projet',
+        'stagiaire_id',
     ];
 
     public function stagiaire()
     {
         return $this->belongsTo(Stagiaire::class);
+    }
+
+    public function taches()
+    {
+        return $this->hasMany(Tache::class);
+    }
+
+    public function piece_jointes()
+    {
+        return $this->hasMany(PieceJointe::class);
     }
 }

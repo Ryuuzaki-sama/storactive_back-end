@@ -15,5 +15,21 @@ class StageResource extends JsonResource
     public function toArray($request)
     {
         return parent::toArray($request);
+        // return [
+        //     'id' => $this->id,
+        //     'name' => $this->name,
+        //     'image' => $this->image_path,
+        //     'tasks' => TaskResource::collection($this->whenLoaded('tasks')),
+        //     'tasks_count' => $this->when(!is_null($this->tasks_count), $this->tasks_count),
+        //     'created_at' => $this->created_at,
+        //     'updated_at' => $this->updated_at,
+        // ];
     }
+
+    // public function with($request)
+    // {
+    //     return [
+    //         'status' => 'Success',
+    //     ];
+    // }
 }

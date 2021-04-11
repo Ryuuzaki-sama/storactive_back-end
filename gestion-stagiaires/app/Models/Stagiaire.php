@@ -18,6 +18,10 @@ class Stagiaire extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+    public function historiques()
+    {
+        return $this->hasMany(Historique::class);
+    }
 
     public function isEnabled(){
         // code here

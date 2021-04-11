@@ -15,8 +15,8 @@ class PieceJointe extends Model
         'chemin',
     ];
 
-    // public function stage()
-    // {
-    //     return $this->belongsTo(Stage::class);
-    // }
+    public function stage()
+    {
+        return $this->belongsTo(Stage::class);
+    }
 }

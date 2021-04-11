@@ -12,6 +12,7 @@ class Tache extends Model
     protected $fillable = [
         'tache',
         'date_tache',
+        'stage_id',
     ];
 
     public function stage()

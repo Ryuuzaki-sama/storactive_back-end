@@ -24,7 +24,7 @@ class TacheController extends Controller
             ->paginate();
 
         return new ProjectCollection($tache);
-
+    }
     /**
      * Store a newly created resource in storage.
      *

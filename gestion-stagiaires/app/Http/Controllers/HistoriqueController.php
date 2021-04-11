@@ -77,5 +77,4 @@ class HistoriqueController extends Controller
         // $stage->$table->softDeletes();
         return ['status' => 'Done'];
     }
-    }
 }
