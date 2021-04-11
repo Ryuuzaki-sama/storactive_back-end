@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\api\AuthController;
+use App\Http\Controllers\PieceJointeController;
+use App\Http\Controllers\StagiaireController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,5 +25,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
-    // Route::apiResource('purchases', PurchaseController::class);
+    Route::apiResource('/stagiaire', StagiaireController::class);
+    Route::apiResource('/stage', StageController::class);
+    Route::apiResource('/tache', TacheController::class);
+    // Route::apiResource('/historique', HistoriqueController::class);
+    Route::apiResource('/alerte', AlerteController::class);
+    Route::apiResource('/absence', AbsenceController::class);
+    Route::apiResource('/piece-jointe', PieceJointeController::class);
 });

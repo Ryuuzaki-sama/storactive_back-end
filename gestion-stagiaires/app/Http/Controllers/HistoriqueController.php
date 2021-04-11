@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\HistoriqueRequest;
 use App\Models\Historique;
 use Illuminate\Http\Request;
 
@@ -18,11 +19,11 @@ class HistoriqueController extends Controller
      */
     public function index()
     {
-        $historique = Stage::where('user_id', auth()->user()->id)
+        $historique = Historique::where('user_id', auth()->user()->id)
             ->withCount('stages')
             ->paginate();
 
-        return new ProjectCollection($historique);
+        return $historique;
     }
 
 
@@ -32,10 +33,10 @@ class HistoriqueController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(HistoriqueRequest $request)
     {
-        $historique = auth()->user()->stages()->create($request->all());
-        return new StageResource($historique);
+        $historique = Historique::create($request->all());
+        return $historique;
     }
 
     /**
@@ -44,11 +45,11 @@ class HistoriqueController extends Controller
      * @param  \App\Models\Historique  $historique
      * @return \Illuminate\Http\Response
      */
-    public function show(Historique $historique)
-    {
-        $historique = $stage->stages();
-        return new StageResource($historique);
-    }
+    // public function show(Historique $historique)
+    // {
+    //     $historique = $stage->stages();
+    //     return new StageResource($historique);
+    // }
 
 
     /**
@@ -58,12 +59,12 @@ class HistoriqueController extends Controller
      * @param  \App\Models\Historique  $historique
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Historique $historique)
-    {
-        $historique->update($request->all());
-        $stages = $historique->stages;
-        return new StageResource($historique);
-    }
+    // public function update(Request $request, Historique $historique)
+    // {
+    //     $historique->update($request->all());
+    //     $stages = $historique->stages;
+    //     return new StageResource($historique);
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -71,10 +72,10 @@ class HistoriqueController extends Controller
      * @param  \App\Models\Historique  $historique
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Historique $historique)
-    {
-        $historique->delete();
-        // $stage->$table->softDeletes();
-        return ['status' => 'Done'];
-    }
+    // public function destroy(Historique $historique)
+    // {
+    //     $historique->delete();
+    //     // $stage->$table->softDeletes();
+    //     return ['status' => 'Done'];
+    // }
 }
