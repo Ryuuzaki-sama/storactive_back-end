@@ -13,7 +13,7 @@ class Stagiaire extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,13 @@ class Stagiaire extends FormRequest
     public function rules()
     {
         return [
-            //
+            'cin' => 'required|max:10',
+            'nom' => 'required',
+            'tel' => 'required|min:10|max:13',
+            'sexe' => 'required|min:1|max:7',
+            'adresse'=> 'required|max:255',
+            'email' => 'email|required',
+            'nom_utilisateur' => 'required',
         ];
     }
 }

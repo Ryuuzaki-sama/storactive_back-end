@@ -14,6 +14,25 @@ class StagiaireResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+
+            'sexe' => $this->sexe,
+            'adresse' => $this->adresse,
+            'tel' => $this->tel,
+
+        ];
+    }
+
+    public function with($request)
+    {
+        return [
+            'status' => 'Data has been fetched successfully'
+        ];
     }
 }
+
+// 'email' => $this->user()->email,
+//             'nom_utilisateur' => $this->user()->nom_utilisateur,
+//             'isenabled' => true,'cin' => $this->user()->cin,
+//             'nom' => $this->user()->nom,

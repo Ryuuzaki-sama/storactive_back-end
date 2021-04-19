@@ -3,15 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Stagiaire;
+use App\Models\User;
+use App\Http\Requests\Stagiaire as StagiaireRequest;
+use Illuminate\Support\Facades\Hash;
+
 use Illuminate\Http\Request;
 use App\Http\Resources\StagiaireResource;
+use App\Http\Resources\StagiaireCollection;
 
 class StagiaireController extends Controller
 {
-    public function __construct()
-    {
-        $this->authorizeResource(Stagiaire::class, 'stagiaire');
-    }
+    // public function __construct()
+    // {
+    //     $this->authorizeResource(Stagiaire::class, 'stagiaire');
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -20,10 +25,9 @@ class StagiaireController extends Controller
     public function index()
     {
         $stagiaire = Stagiaire::where('user_id', auth()->user()->id)
-            ->withCount('stages')
             ->paginate();
 
-        return new ProjectCollection($stagiaire);
+        return new StagiaireCollection($stagiaire);
     }
 
 
@@ -33,10 +37,27 @@ class StagiaireController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StagiaireRequest $request, User $user, Stagiaire $stagiaire)
     {
-        $stagiaire = auth()->user()->stages()->create($request->all());
-        return new StagiaireResource($stagiaire);
+
+        $user->cin = $request->cin;
+        $user->nom = $request->nom;
+        $user->email = $request->email;
+        $user->nom_utilisateur = $request->nom_utilisateur;
+        $user->password = Hash::make($request->cin);
+        $user->save();
+
+        $stagiaire->sexe = $request->sexe;
+        $stagiaire->tel = $request->tel;
+        $stagiaire->adresse = $request->adresse;
+        $stagiaire->user_id = $user->id;
+        $stagiaire->save();
+
+
+        // $user->stagiare()->create($request->only('tel','sexe','adresse',$user->id));
+
+        return ['message'=> `Le Stagiaire {$user->nom} a bien été ajouté `];
+
     }
 
     /**
@@ -47,7 +68,7 @@ class StagiaireController extends Controller
      */
     public function show(Stagiaire $stagiaire)
     {
-        $stages = $stagiaire->stages();
+        // $stages = $stagiaire->stages();
         return new StagiaireResource($stagiaire);
     }
 
@@ -58,11 +79,17 @@ class StagiaireController extends Controller
      * @param  \App\Models\Stagiaire  $stagiaire
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Stagiaire $stagiaire)
+    public function update(StagiaireRequest $request, User $user, Stagiaire $stagiaire)
     {
-        $stagiaire->update($request->all());
-        $stages = $stagiaire->stages;
-        return new StagiaireResource($stagiaire);
+        $user->cin = $request->cin ;
+        $user->nom = $request->nom;
+        $user->email = $request->email;
+        $user->nom_utilisateur = $request->nom_utilisateur;
+        $user->save();
+
+        $user->stagiare()->update($request->only(['nom', 'nom_utilisateur', 'tel','adresse']));
+        // $stages = $stagiaire->stages;
+        return ['message' => `Les informations du Stagiaire {$user->nom} ont bien été mise a jour `];
     }
 
     /**

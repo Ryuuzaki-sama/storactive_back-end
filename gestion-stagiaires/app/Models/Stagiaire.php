@@ -10,6 +10,9 @@ class Stagiaire extends Model
     use HasFactory;
 
     protected $fillable = [
+        // 'cin',
+        // 'nom',
+        // '',
         'sexe',
         'adresse',
         'tel',
